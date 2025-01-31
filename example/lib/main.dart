@@ -43,19 +43,20 @@ class _MyAppState extends State<MyApp> {
                             elevation: 2,
                             child: ListTile(
                               title: Text(appDetail.appName),
-                              subtitle: Text("${appDetail.appIdentifier}"),
+                              subtitle: Text("${appDetail.appIdentifier} v${appDetail.sourceDir} f${appDetail.flags}"),
                             ),
+
                           ),
-                          onTap: (){
-                            AppUtils.launchApp(
-                                androidPackage: appDetail.appIdentifier,
-                                iosUrlScheme: "whatsapp://",
-                                playStoreUrl:
-                                "https://play.google.com/store/apps/details?id=${appDetail.appIdentifier}",
-                                appStoreUrl:
-                                "https://apps.apple.com/in/app/whatsapp-messenger/id310633997",
-                                launchStore: true);
-                          },
+                          // onTap: (){
+                          //   AppUtils.launchApp(
+                          //       androidPackage: appDetail.appIdentifier,
+                          //       iosUrlScheme: "whatsapp://",
+                          //       playStoreUrl:
+                          //       "https://play.google.com/store/apps/details?id=${appDetail.appIdentifier}",
+                          //       appStoreUrl:
+                          //       "https://apps.apple.com/in/app/whatsapp-messenger/id310633997",
+                          //       launchStore: true);
+                          // },
                         );
                       });
                 } else {
@@ -63,10 +64,11 @@ class _MyAppState extends State<MyApp> {
                 }
               },
             ),
-          ),
+          )
+          /*
           floatingActionButton:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            ElevatedButton(
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              ElevatedButton(
                 onPressed: () async {
                    final settings = Platform.isAndroid ?
                        AndroidSettings(settings: AndroidSettingsType.MAIN) :
@@ -74,18 +76,18 @@ class _MyAppState extends State<MyApp> {
                     await AppUtils.openDeviceSettings(settings);
                 },
                 child: Text("Open Settings")),
-            Builder(builder: (BuildContext builderContext) {
-              return ElevatedButton(
-                  onPressed: () async {
-                    final canLaunch = await AppUtils.canLaunchApp(
-                        androidPackageName: "com.whatsapp",
-                        iOSUrlScheme: "whatsapp://");
-                    ScaffoldMessenger.of(builderContext).showSnackBar(SnackBar(
-                      content: Text("Can launch application : $canLaunch"),
-                    ));
-                  },
-                  child: Text("Can Launch App"));
-            }),
+                Builder(builder: (BuildContext builderContext) {
+                  return ElevatedButton(
+                      onPressed: () async {
+                        final canLaunch = await AppUtils.canLaunchApp(
+                            androidPackageName: "com.whatsapp",
+                            iOSUrlScheme: "whatsapp://");
+                        ScaffoldMessenger.of(builderContext).showSnackBar(SnackBar(
+                          content: Text("Can launch application : $canLaunch"),
+                        ));
+                      },
+                      child: Text("Can Launch App"));
+                }),
                 Builder(
                   builder:(builderContext) => ElevatedButton(
                       onPressed: () async {
@@ -112,7 +114,9 @@ class _MyAppState extends State<MyApp> {
                       },
                       child: Text("Device Info")),
                 )
-          ])),
+          ])
+          */
+        ),
     );
   }
 }

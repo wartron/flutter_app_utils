@@ -45,6 +45,11 @@ fun Context.launchApp(args: Map<String, Any>, result: Result) {
 fun Context.getInstalledApplications(result: Result) {
     try {
         val packages = packageManager.getInstalledPackages(PackageManager.GET_META_DATA)
+            .filter { pkg -> 
+                // Filter out system apps by checking if FLAG_SYSTEM is not set
+                (pkg.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_SYSTEM) == 0
+            }
+        
         val apps = packages.map { bundleInfo ->
             HashMap<String, Any>().apply {
                 put(Keys.APP_IDENTIFIER, bundleInfo.packageName)
@@ -55,11 +60,22 @@ fun Context.getInstalledApplications(result: Result) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) bundleInfo.longVersionCode
                     else bundleInfo.versionCode
                 )
+                put(Keys.DATA_DIR, bundleInfo.applicationInfo.dataDir)
+                put("sourceDir", bundleInfo.applicationInfo.sourceDir)
+                put("publicSourceDir", bundleInfo.applicationInfo.publicSourceDir)
+                put("nativeLibraryDir", bundleInfo.applicationInfo.nativeLibraryDir)
+                put("processName", bundleInfo.applicationInfo.processName)
+                put("enabled", bundleInfo.applicationInfo.enabled)
+                put("flags", bundleInfo.applicationInfo.flags)
+                put("targetSdkVersion", bundleInfo.applicationInfo.targetSdkVersion)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    put("minSdkVersion", bundleInfo.applicationInfo.minSdkVersion)
+                }
             }
         }.toList()
         result.success(apps)
     } catch (e: Exception) {
-        result.error(Errors.DEFAULT_ERROR, "No able to query packages", null)
+        result.error(Errors.DEFAULT_ERROR, "Not able to query packages", null)
     }
 }
 

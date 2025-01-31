@@ -24,6 +24,8 @@ object Keys {
     const val DEVICE_ID = "deviceId"
     const val OS_VERSION = "osVersion"
     const val TYPE = "type"
+    const val DATA_DIR = "dataDir"
+    const val FLAGS = "flags"
 }
 
 object Errors {

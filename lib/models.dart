@@ -4,15 +4,20 @@ class BundleInfo {
   final String appIdentifier;
   final String version;
   final String buildNo;
+  final String flags;
+  final String sourceDir;
 
-  BundleInfo(this.appName, this.appIdentifier, this.version, this.buildNo);
+  BundleInfo(this.appName, this.appIdentifier, this.version, this.buildNo, this.flags, this.sourceDir);
 
   static BundleInfo fromJson(dynamic json) {
     return BundleInfo(
         json["appName"] ?? 'null',
         json["appIdentifier"] ?? 'null',
         json["version"] ?? 'null',
-        (json["buildNo"] ?? 'null').toString());
+        (json["buildNo"] ?? 'null').toString(),
+        (json["flags"] ?? 'null').toString(),
+        json["sourceDir"] ?? 'null'
+      );
   }
 }
 
