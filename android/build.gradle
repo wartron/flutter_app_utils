@@ -25,6 +25,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace 'in.techbyvishesh.app_utils'
     compileSdkVersion 30
 
     sourceSets {
